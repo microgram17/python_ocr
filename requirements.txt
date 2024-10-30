@@ -92,3 +92,5 @@ urllib3==2.2.3
 wcwidth==0.2.13
 Werkzeug==3.0.4
 wrapt==1.16.0
+kagglehub==0.3.3
+tqdm==4.66.6
