@@ -10,16 +10,10 @@ venv/
 # Ignore Jupyter Notebook checkpoints
 .ipynb_checkpoints
 
-# Ignore model checkpoints
-models/saved_models/
-
 # Ignore dataset and processed data
 data/raw/
-data/processed/
-data/augmentation/
 
 # Ignore large or temporary files
-*.h5
 *.ckpt
 *.weights
 *.log
