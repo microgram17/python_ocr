@@ -65,6 +65,7 @@ def predict_text(bounding_boxes):
         char = np.expand_dims(char_resized, axis=0)  # Expand to 4D for model input
         prediction = model.predict(char)
         predicted_class = np.argmax(prediction)
+        confidence = prediction[0][predicted_class]  # Confidence for the predicted class
         
         # Map the predicted class to the correct ASCII character using the mapping
         ascii_code = mapping.get(predicted_class, None)
@@ -73,17 +74,17 @@ def predict_text(bounding_boxes):
         else:
             predicted_char = '?'
         
-        predictions.append((predicted_char, char_resized))
+        predictions.append((predicted_char, confidence, char_resized))
         result += predicted_char
 
-    # Display all characters and predictions in a single plot
+    # Display all characters and predictions with confidence in a single plot
     fig, axes = plt.subplots(1, len(predictions), figsize=(15, 3))
-    for ax, (predicted_char, char_img) in zip(axes, predictions):
+    for ax, (predicted_char, confidence, char_img) in zip(axes, predictions):
         ax.imshow(char_img, cmap='gray')
-        ax.set_title(predicted_char)
+        ax.set_title(f"{predicted_char} ({confidence:.2f})")  # Show character and confidence
         ax.axis('off')
     
-    plt.suptitle("Predicted Characters")
+    plt.suptitle("Predicted Characters with Confidence")
     plt.show()
 
     return result
